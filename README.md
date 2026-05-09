@@ -31,7 +31,7 @@ This project lets users connect supported devices over Web Serial, choose a firm
 Install dependencies:
 
 ```bash
-npm ci
+npm install
 ```
 
 Start development server:
