@@ -1,73 +1,90 @@
-# React + TypeScript + Vite
+# Borneo-IoT Web Flasher
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Web-based firmware flasher for ESP devices, built with React + TypeScript + Vite and powered by [`esp-web-tools`](https://github.com/esphome/esp-web-tools).
 
-Currently, two official plugins are available:
+This project lets users connect supported devices over Web Serial, choose a firmware manifest, and flash directly from the browser.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+- Device firmware selection from a manifest list (`/public/firmware/manifests.json`)
+- Browser-based flashing through `esp-web-install-button`
+- Clear unsupported-browser and permission warnings
+- Material UI based interface
+- Auto-injected app version from `package.json`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+- React 19
+- TypeScript
+- Vite
+- Material UI
+- TSyringe + reflect-metadata
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Requirements
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js (current LTS recommended)
+- npm
+- A Web Serial compatible browser (Chrome/Edge)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Local Development
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Install dependencies:
+
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Start development server:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+npm run dev
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Build & Quality Checks
+
+Lint:
+
+```bash
+npm run lint
+```
+
+Production build:
+
+```bash
+npm run build
+```
+
+Preview build:
+
+```bash
+npm run preview
+```
+
+## Firmware Assets
+
+- Firmware files and manifest files are served from `/public/firmware/`.
+- In CI/CD, release assets are downloaded from `borneo-iot/borneo` tag `release-fw-latest`.
+- Supported downloaded assets include:
+  - `manifests.json`
+  - `*.bin`
+  - `*.bin.gz`
+  - `*.manifest.json`
+
+## Deployment Workflows
+
+- `deploy.yml`: builds the site and deploys to GitHub Pages on `master` push or manual dispatch.
+- `check-manifests.yml`: daily check that compares remote and release manifests, then triggers deployment if content changed.
+
+## Project Structure
+
+```text
+src/
+  App.tsx          Main UI and flashing flow
+  main.tsx         Application bootstrap and theme setup
+  types.d.ts       Custom JSX and global version typing
+public/
+  firmware/        Firmware binaries and manifests
+.github/workflows/
+  deploy.yml
+  check-manifests.yml
 ```
