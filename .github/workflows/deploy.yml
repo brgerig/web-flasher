@@ -31,7 +31,7 @@ jobs:
         run: |
           # Ensure public/firmware directory exists
           mkdir -p public/firmware
-          curl -fL -o "public/firmware/$name" "https://github.com/brgerig/fugleramme/blob/main/ee02_firmware/arduino_epaper.ino.merged.bin"
+          curl -fL -o "public/firmware/arduino_epaper.ino.merged.bin" "https://github.com/brgerig/fugleramme/blob/main/ee02_firmware/arduino_epaper.ino.merged.bin"
           
           # Get the firmware release info
           #RELEASE_INFO=$(gh api repos/${{ env.FIRMWARE_REPO }}/releases/tags/${{ env.FIRMWARE_TAG }})
