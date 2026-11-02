@@ -1,18 +1,11 @@
 [
     {
-        "name": "Fugleramme-EE02",
-        "product_id": "bst/xiaoc3",
-        "board_name": "Seeed XIAO-ESP32C3",
-        "compatible": "bst,fugleramme",
-        "version": ".1",
-        "sha256": "04935acad22272f4b5146412634f37d80f67a8a8442212405104ed1d1b137df7",
-        "merged_filename": "arduino_epaper.ino.merged.bin",
-        "timestamp": 1793568913838,
+        "name": "Fugleramme",
         "new_install_prompt_erase": true,
         "new_install_improv_wait_time": 0,
         "builds": [
             {
-                "chipFamily": "ESP32-C3",
+                "chipFamily": "ESP32-S3",
                 "parts": [
                     {
                         "path": "/firmware/arduino_epaper.ino.merged.bin",
